@@ -1,4 +1,5 @@
 from django.db import models
+from .utils import from_cyrillic_to_eng
 
 
 class City(models.Model):
@@ -9,9 +10,14 @@ class City(models.Model):
     class Meta:
         verbose_name = 'Название населенного пункта'
         verbose_name_plural = 'Название населенных пунктов'
-        
+
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = from_cyrillic_to_eng(str(self.name))
+            super().save(*args, **kwargs)
 
 
 class Language(models.Model):
@@ -24,3 +30,8 @@ class Language(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = from_cyrillic_to_eng(str(self.name))
+        super().save(*args, **kwargs)
