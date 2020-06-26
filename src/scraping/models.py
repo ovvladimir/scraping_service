@@ -1,5 +1,5 @@
 from django.db import models
-from .utils import from_cyrillic_to_eng
+from scraping.utils import from_cyrillic_to_eng
 
 
 class City(models.Model):
