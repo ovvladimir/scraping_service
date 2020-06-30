@@ -16,6 +16,14 @@
   }
 },
 {
+  "model": "scraping.city",
+  "pk": 3,
+  "fields": {
+    "name": "\u041a\u0438\u0435\u0432",
+    "slug": "kiev"
+  }
+},
+{
   "model": "scraping.language",
   "pk": 2,
   "fields": {
