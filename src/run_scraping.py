@@ -1,10 +1,6 @@
-import asyncio
 import codecs
 import os
 import sys
-import datetime as dt
-
-from django.contrib.auth import get_user_model
 from django.db import DatabaseError
 
 proj = os.path.dirname(os.path.abspath('manage.py'))
@@ -15,7 +11,7 @@ import django
 django.setup()
 
 from scraping.parsers import *
-from scraping.models import Vacancy, City, Language  # Error, Url
+from scraping.models import Vacancy, City, Language
 
 parsers = (
     (work, 'https://www.work.ua/ru/jobs-python/'),
@@ -36,8 +32,8 @@ for func, url in parsers:
 print(len(jobs), len(errors), city, language)
 
 for job in jobs:
-    v = Vacancy(**job)
-    # v.save()
+    v = Vacancy(**job, city=city, language=language)
+    v.save()
     try:
         v.save()
         print(v)
