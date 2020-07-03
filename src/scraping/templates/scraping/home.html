@@ -4,16 +4,16 @@
 
 {% block content %}
 <div class="row">
-    <div class="col"><h2 class=" text-center my-3">Сервис по сбору и рассылки вакансий</h2>
+    <div class="col"><h2 class="text-center my-4">Сервис по сбору и рассылки вакансий</h2>
     </div>
 </div>
 <div class="row ">
-    <div class="col-md-8 mx-auto my-2">
+    <div class="col-md-8 mx-auto my-2 text-center">
         <h4>
-           Для просмотра доступных вакансий заполните форму по одному из полей (либо город, либо язык программирования)
+           Для просмотра доступных вакансий заполните форму (оба поля или одно из полей)
         </h4>
     <form method="GET" action="{% url 'list' %}">
-        <div class="form-group">
+        <div class="form-group my-4">
         {{ form.as_p }}
         </div>
         <button type="submit" class="btn btn-primary">Найти</button>
