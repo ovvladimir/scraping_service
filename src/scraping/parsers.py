@@ -1,28 +1,32 @@
 import requests
 import codecs
-from bs4 import BeautifulSoup as BS
+from bs4 import BeautifulSoup as BSp
 from random import randint
 
 __all__ = ('work', "rabota", 'dou', 'djinni')
+jobs, errors = [], []
 
 headers = [
     {'User-Agent': 'Mozilla/5.0 (Windows NT 5.1; rv:47.0) Gecko/20100101 Firefox/47.0',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'},
-    {'User-Agent': 'Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36',
+    {'User-Agent': 'Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 '
+                   '(KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'},
     {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; rv:53.0) Gecko/20100101 Firefox/53.0',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'}
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'},
+    {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
+                   '(KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36'}
 ]
 
 
 def work(url, city=None, language=None):
-    jobs = []
-    errors = []
+    jobs.clear()
+    errors.clear()
     domain = 'https://www.work.ua'
     if url:
         resp = requests.get(url, headers=headers[randint(0, 2)])
         if resp.status_code == 200:
-            soup = BS(resp.content, 'html.parser')
+            soup = BSp(resp.content, 'html.parser')
             main_div = soup.find('div', id='pjax-job-list')
             if main_div:
                 div_lst = main_div.find_all('div', attrs={'class': 'job-link'})
@@ -46,13 +50,13 @@ def work(url, city=None, language=None):
 
 
 def rabota(url, city=None, language=None):
-    jobs = []
-    errors = []
+    jobs.clear()
+    errors.clear()
     domain = 'https://rabota.ua'
     if url:
         resp = requests.get(url, headers=headers[randint(0, 2)])
         if resp.status_code == 200:
-            soup = BS(resp.content, 'html.parser')
+            soup = BSp(resp.content, 'html.parser')
             new_jobs = soup.find('div',
                                  attrs={'class': 'f-vacancylist-newnotfound'})
             if not new_jobs:
@@ -88,13 +92,13 @@ def rabota(url, city=None, language=None):
 
 
 def dou(url, city=None, language=None):
-    jobs = []
-    errors = []
+    jobs.clear()
+    errors.clear()
     # domain = 'https://www.work.ua'
     if url:
         resp = requests.get(url, headers=headers[randint(0, 2)])
         if resp.status_code == 200:
-            soup = BS(resp.content, 'html.parser')
+            soup = BSp(resp.content, 'html.parser')
             main_div = soup.find('div', id='vacancyListId')
             if main_div:
                 li_lst = main_div.find_all('li', attrs={'class': 'l-vacancy'})
@@ -120,13 +124,13 @@ def dou(url, city=None, language=None):
 
 
 def djinni(url, city=None, language=None):
-    jobs = []
-    errors = []
+    jobs.clear()
+    errors.clear()
     domain = 'https://djinni.co'
     if url:
         resp = requests.get(url, headers=headers[randint(0, 2)])
         if resp.status_code == 200:
-            soup = BS(resp.content, 'html.parser')
+            soup = BSp(resp.content, 'html.parser')
             main_ul = soup.find('ul', attrs={'class': 'list-jobs'})
             if main_ul:
                 li_lst = main_ul.find_all('li',
@@ -155,14 +159,14 @@ def djinni(url, city=None, language=None):
 
 
 if __name__ == '__main__':
-    url = 'https://www.work.ua/ru/jobs-kyiv-python/'
-    jobs, errors = work(url)
-    # url = 'https://rabota.ua/zapros/python'
-    # jobs, errors = rabota(url)
-    # url = 'https://jobs.dou.ua/vacancies/?category=Python'
-    # jobs, errors = dou(url)
-    # url = 'https://djinni.co/jobs/?location=%D0%9A%D0%B8%D0%B5%D0%B2&primary_keyword=Python'
-    # jobs, errors = djinni(url)
+    url_list = [
+        'https://www.work.ua/ru/jobs-kyiv-python/',
+        'https://rabota.ua/zapros/python',
+        'https://jobs.dou.ua/vacancies/?category=Python',
+        'https://djinni.co/jobs/?location=%D0%9A%D0%B8%D0%B5%D0%B2&primary_keyword=Python'
+    ]
+    jobs, errors = work(url_list[0])
+
     with codecs.open('work.txt', 'w', 'utf-8') as h:
         h.write(str(jobs))
 
