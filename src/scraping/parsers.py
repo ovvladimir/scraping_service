@@ -61,7 +61,7 @@ def rabota(url, city=None, language=None):
                 if table:
                     tr_lst = table.find_all('tr', attrs={'id': True})
                     for tr in tr_lst:
-                        div = tr.find('div',  attrs={'class': 'card-body'})
+                        div = tr.find('div', attrs={'class': 'card-body'})
                         if div:
                             title = div.find('p',
                                              attrs={'class': 'card-title'})
@@ -73,10 +73,10 @@ def rabota(url, city=None, language=None):
                                 company = p.a.text
                             jobs.append({
                                 'title': title.text,
-                                 'url': domain + href,
-                                 'description': content,
-                                 'company': company,
-                                 'city_id': city, 'language_id': language})
+                                'url': domain + href,
+                                'description': content,
+                                'company': company,
+                                'city_id': city, 'language_id': language})
                 else:
                     errors.append({'url': url, 'title': "Table does not exists"})
             else:
@@ -127,7 +127,7 @@ def djinni(url, city=None, language=None):
         resp = requests.get(url, headers=headers[randint(0, 2)])
         if resp.status_code == 200:
             soup = BS(resp.content, 'html.parser')
-            main_ul = soup.find('ul',  attrs={'class': 'list-jobs'})
+            main_ul = soup.find('ul', attrs={'class': 'list-jobs'})
             if main_ul:
                 li_lst = main_ul.find_all('li',
                                           attrs={'class': 'list-jobs__item'})
@@ -155,20 +155,20 @@ def djinni(url, city=None, language=None):
 
 
 if __name__ == '__main__':
-    # url = 'https://www.work.ua/ru/jobs-kiev-python/'
-    # jobs, errors = work(url)
+    url = 'https://www.work.ua/ru/jobs-kyiv-python/'
+    jobs, errors = work(url)
     # url = 'https://rabota.ua/zapros/python'
     # jobs, errors = rabota(url)
     # url = 'https://jobs.dou.ua/vacancies/?category=Python'
     # jobs, errors = dou(url)
-    url = 'https://djinni.co/jobs/?location=%D0%9A%D0%B8%D0%B5%D0%B2&primary_keyword=Python'
-    jobs, errors = djinni(url)
+    # url = 'https://djinni.co/jobs/?location=%D0%9A%D0%B8%D0%B5%D0%B2&primary_keyword=Python'
+    # jobs, errors = djinni(url)
     with codecs.open('work.txt', 'w', 'utf-8') as h:
         h.write(str(jobs))
 
 """
 resp = requests.get(
-    'https://www.work.ua/ru/jobs-kiev-python/',
+    'https://www.work.ua/ru/jobs-kyiv-python/',
     headers={
         'User-Agent': 'Mozilla/5.0 (Windows NT 5.1; rv:47.0) Gecko/20100101 Firefox/47.0',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
