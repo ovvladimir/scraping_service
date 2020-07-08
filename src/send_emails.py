@@ -91,8 +91,10 @@ if qs.exists():
         subject += f" Пожелания пользователей {today}"
         text_content += "Пожелания пользователей"
 
-dict_city = {[*d.values()][0]: [*d.values()][1] for d in City.objects.all().values()}
-dict_language = {[*d.values()][0]: [*d.values()][1] for d in Language.objects.all().values()}
+ct = City.objects.all().values()
+lg = City.objects.all().values()
+dict_city = {[*d.values()][0]: [*d.values()][1] for d in ct}
+dict_language = {[*d.values()][0]: [*d.values()][1] for d in lg}
 qs = Url.objects.all().values('city', 'language')
 urls_dct = {(i['city'], i['language']): True for i in qs}
 urls_err = ''
@@ -100,7 +102,7 @@ for keys in users_dct.keys():
     if keys not in urls_dct:
         if keys[0] and keys[1]:
             # ct = City.objects.get(id=keys[0])
-            # lng = Language.objects.get(id=keys[1])
+            # lg = Language.objects.get(id=keys[1])
             urls_err += f'<p"> Для города: {dict_city[keys[0]]} и ЯП: {dict_language[keys[1]]} отсутствуют урлы</p><br>'
 if urls_err:
     subject += ' Отсутствующие урлы '
