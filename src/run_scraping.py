@@ -91,6 +91,8 @@ if errors:
         er = Error(data=f'errors:{errors}').save()
 
 """
+import codecs
+
 parsers = (
     (work, 'https://www.work.ua/ru/jobs-kyiv-python/'),
     (dou, 'https://jobs.dou.ua/vacancies/?category=Python'),

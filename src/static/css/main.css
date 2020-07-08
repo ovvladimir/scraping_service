@@ -1,8 +1,8 @@
 @font-face {
-    font-family: WendyOne;
-    src: url(../fonts/WendyOne-Regular.ttf);
+    font-family: Neuton;
+    src: url(../fonts/Neuton-Regular.ttf);
 }
 #brand {
-    font-family: WendyOne;
+    font-family: Neuton;
     color: #FFF;
 }

@@ -3,3 +3,4 @@ Django
 beautifulsoup4
 requests
 jsonfield
+python-dotenv
