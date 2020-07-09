@@ -38,9 +38,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ["job-finder-my.herokuapp.com"]
 
-
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
