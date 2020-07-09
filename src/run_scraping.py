@@ -16,8 +16,6 @@ try:
 
     from scraping.parsers import *
     from scraping.models import Vacancy, Error, Url
-    # import codecs
-    # from scraping.models import City, Language
 except (BaseException, ImportError):
     pass
 
@@ -91,6 +89,7 @@ if errors:
         er = Error(data=f'errors:{errors}').save()
 
 """
+from scraping.models import City, Language
 import codecs
 
 parsers = (
