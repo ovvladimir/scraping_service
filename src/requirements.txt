@@ -4,3 +4,8 @@ beautifulsoup4
 requests
 jsonfield
 python-dotenv
+
+gunicorn
+whitenoise
+dj-database-url
+psycopg2-binary
