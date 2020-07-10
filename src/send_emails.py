@@ -92,7 +92,7 @@ if qs.exists():
         text_content += "Пожелания пользователей"
 
 ct = City.objects.all().values('id', 'name')
-lg = City.objects.all().values('id', 'name')
+lg = Language.objects.all().values('id', 'name')
 dict_city = {d['id']: d['name'] for d in ct}
 dict_language = {d['id']: d['name'] for d in lg}
 # dict_city = {[*d.values()][0]: [*d.values()][1] for d in ct}
